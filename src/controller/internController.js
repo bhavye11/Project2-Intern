@@ -1,6 +1,7 @@
 const internModel = require("../models/internModels");
 const collegeModel = require("../models/collegeModels");
 
+//-------------------------POST API CREATE INTERN DETAILS---------------------------------------
 const createIntern = async function (req, res) {
     try {
         let userRequest = req.body;
