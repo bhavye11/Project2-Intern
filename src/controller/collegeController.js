@@ -76,7 +76,7 @@ const getCollegeAndInternsDetails = async function (req, res) {
 
         if (!ObjectId.isValid(collegeId)) return res.status(400).send({ status: false, message: "Not a valid college ID" })
 
-        let getInterns = await internModel.find({ collegeId: collegeId }).select({ isDeleted: 0 })
+        let getInterns = await internModel.find({ collegeId: collegeId }).select({ isDeleted: 0, collegeId: 0, __v: 0 })
 
         if (!getInterns) return res.status(404).send({ status: false, message: "data not found" })
 
