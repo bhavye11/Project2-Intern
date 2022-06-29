@@ -9,7 +9,6 @@ const collegeSchema = new mongoose.Schema({
     fullName: {
         type: String,
         required: [true, 'College fullname is required'],
-        unique: true
     },
     logoLink: {
         type: String,
