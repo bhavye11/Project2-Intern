@@ -47,9 +47,10 @@ const createCollege = async function (req, res) {
         let uniqueName = await collegeModel.findOne({ name })
         if (uniqueName) return res.status(400).send({ message: "Dublicate name" })
 
-
         let collegeData = await collegeModel.create(data);
-        res.status(201).send({ status: true, data: collegeData });
+
+        let requiredCollegeData= {name: collegeData.name, fullName: collegeData.fullName, logoLink: collegeData.logoLink, isDeleted: collegeData.isDeleted}
+        res.status(201).send({ status: true, data: requiredCollegeData });
 
     } catch (error) {
         res.status(500).send({ status: false, message: error.message })
