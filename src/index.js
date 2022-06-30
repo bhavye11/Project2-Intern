@@ -9,14 +9,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 mongoose.connect("mongodb+srv://cluster0.6evf0.mongodb.net/?retryWrites=true&w=majority",
-{
-    dBname: 'group15Database',
-    user: 'Avijit07',
-    pass: 'Avijit@1998',
-    useNewUrlParser: true
-})
-.then( () => console.log("MongoDb is connected"))
-.catch ( err => console.log(err) )
+    {
+        dBname: 'group15Database',
+        user: 'Avijit07',
+        pass: 'Avijit@1998',
+        useNewUrlParser: true
+    })
+    .then(() => console.log("MongoDb is connected"))
+    .catch(err => console.log(err))
 
 app.use('/', route);
 

@@ -2,8 +2,8 @@ const internModel = require("../models/internModels");
 const collegeModel = require("../models/collegeModels");
 
 
-const validateEmail=/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
-let validMobile = /^[6-9]\d{9}$/; 
+const validateEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+let validMobile = /^[6-9]\d{9}$/;
 
 
 const isValid = function (x) {
@@ -24,7 +24,7 @@ const createIntern = async function (req, res) {
         if (!isValidBody(userRequest)) {
             return res.status(400).send({ status: false, message: "Invalid Request Parameter, Please Provide Another Details", });
         }
-        
+
         let { name, email, mobile, collegeName } = userRequest
 
         if (!isValid(name)) return res.status(400).send({ status: false, message: "name is required" });
@@ -36,7 +36,7 @@ const createIntern = async function (req, res) {
 
         //Validation of email and phone number 
         if (!validateEmail.test(email)) return res.status(400).send({ status: false, message: "email should be in right format" });
-        
+
         if (!validMobile.test(mobile)) return res.status(400).send({ status: false, message: "mobile number should contain only numeric numbers and must contain 10 numbers" });
 
 
@@ -52,7 +52,7 @@ const createIntern = async function (req, res) {
 
         let collegeData = await collegeModel.findOne({ fullName: collegeName }).select({ _id: 1 })
 
-        if(!collegeData) return res.status(404).send({status: false, message: "College not found"});
+        if (!collegeData) return res.status(404).send({ status: false, message: "College not found" });
 
         let collegeId = collegeData._id
 
@@ -60,10 +60,10 @@ const createIntern = async function (req, res) {
 
         let internData = await internModel.create(data);
 
-        let requiredInternData= { isDeleted: internData.isDeleted, name: internData.name, email: internData.email, mobile: internData.mobile, collegeId: internData.collegeId }
+        let requiredInternData = { isDeleted: internData.isDeleted, name: internData.name, email: internData.email, mobile: internData.mobile, collegeId: internData.collegeId }
 
         res.status(201).send({ status: true, data: requiredInternData });
-        
+
     } catch (error) {
         res.status(500).send({ status: false, message: error.message })
     }
