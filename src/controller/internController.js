@@ -41,7 +41,7 @@ const createIntern = async function (req, res) {
 
 
 
-        //Checking dublicate email and phone number
+        //Checking duplicate email and phone number
         let uniqueName = await internModel.findOne({ $or: [{ email: email }, { mobile: mobile }] })
         if (uniqueName) {
             if (uniqueName.email == email) return res.status(400).send({ stastus: false, message: "email is already exist" })

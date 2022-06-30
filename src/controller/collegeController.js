@@ -45,7 +45,7 @@ const createCollege = async function (req, res) {
 
         //for checking duplication
         let uniqueName = await collegeModel.findOne({ name })
-        if (uniqueName) return res.status(400).send({ message: "Dublicate name" })
+        if (uniqueName) return res.status(400).send({ message: "duplicate name" })
 
         let collegeData = await collegeModel.create(data);
 
