@@ -4,6 +4,8 @@ const collegeModel = require("../models/collegeModels");
 
 const validateEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 let validMobile = /^[6-9]\d{9}$/;
+let nameRegex = /^[.a-zA-Z\s,-]+$/;
+
 
 
 const isValid = function (x) {
@@ -34,12 +36,12 @@ const createIntern = async function (req, res) {
 
 
 
-        //Validation of email and phone number 
+        //Validation of email, phone number and name
         if (!validateEmail.test(email)) return res.status(400).send({ status: false, message: "email should be in right format" });
 
         if (!validMobile.test(mobile)) return res.status(400).send({ status: false, message: "mobile number should contain only numeric numbers and must contain 10 numbers" });
 
-
+        if (!nameRegex.test(name)) return res.status(400).send({ status: false, message: "don't enter numeric value" })
 
         //Checking duplicate email and phone number
         let uniqueName = await internModel.findOne({ $or: [{ email: email }, { mobile: mobile }] })

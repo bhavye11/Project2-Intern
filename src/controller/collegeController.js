@@ -3,7 +3,7 @@ const internModel = require("../models/internModels");
 const ObjectId = require("mongoose").Types.ObjectId
 
 let validUrl = /^(https:\/\/)[a-zA-Z\-_]+\.[a-zA-Z0-9]+\.[a-zA-Z0-9\-_]+\.[a-zA-Z]+\.[a-zA-Z]+\/[a-zA-Z]+\/[a-zA-Z\-]+\.[a-zA-Z]{2,5}/;
-
+let nameRegex = /^[.a-zA-Z\s,-]+$/;
 
 const isValid = function (x) {
     if (typeof x === "undefined" || x === null) return false;
@@ -43,6 +43,10 @@ const createCollege = async function (req, res) {
             return res.status(400).send({ status: false, message: "Enter Valid Url" })
         }
 
+        if (!nameRegex.test(name)) return res.status(400).send({ status: false, message: "don't enter numeric value in name" })
+        if (!nameRegex.test(fullName)) return res.status(400).send({ status: false, message: "don't enter numeric value in fullName" })
+
+
         //for checking duplication
         let uniqueName = await collegeModel.findOne({ name })
         if (uniqueName) return res.status(400).send({ message: "duplicate name" })
@@ -69,7 +73,7 @@ const getCollegeAndInternsDetails = async function (req, res) {
             return res.status(400).send({ status: false, message: "Name is required" })
         }
 
-        const getCollege = await collegeModel.findOne({ name: collegeName }).select({ isDeleted: 0 })
+        const getCollege = await collegeModel.findOne({ name: collegeName, isDeleted: false }).select({ isDeleted: 0 })
         if (!getCollege) return res.status(404).send({ status: false, message: "data not found" })
 
 
@@ -77,7 +81,7 @@ const getCollegeAndInternsDetails = async function (req, res) {
 
         if (!ObjectId.isValid(collegeId)) return res.status(400).send({ status: false, message: "Not a valid college ID" })
 
-        let getInterns = await internModel.find({ collegeId: collegeId }).select({ isDeleted: 0, collegeId: 0, __v: 0 })
+        let getInterns = await internModel.find({ collegeId: collegeId, isDeleted: false }).select({ isDeleted: 0, collegeId: 0, __v: 0 })
 
         if (!getInterns) return res.status(404).send({ status: false, message: "data not found" })
 
