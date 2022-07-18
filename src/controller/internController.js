@@ -1,7 +1,7 @@
 const internModel = require("../models/internModels");
 const collegeModel = require("../models/collegeModels");
 
-
+// ==> REGEX
 const validateEmail = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 let validMobile = /^[6-9]\d{9}$/;
 let nameRegex = /^[.a-zA-Z\s,-]+$/;

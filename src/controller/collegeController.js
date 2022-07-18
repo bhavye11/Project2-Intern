@@ -1,7 +1,7 @@
 const collegeModel = require("../models/collegeModels");
 const internModel = require("../models/internModels");
 const ObjectId = require("mongoose").Types.ObjectId
-
+// ==> REGEX
 let validUrl = /^(https:\/\/)[a-zA-Z\-_]+\.[a-zA-Z0-9]+\.[a-zA-Z0-9\-_]+\.[a-zA-Z]+\.[a-zA-Z]+\/[a-zA-Z]+\/[a-zA-Z\-]+\.[a-zA-Z]{2,5}/;
 let nameRegex = /^[.a-zA-Z\s,-]+$/;
 
